@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ArrayOfPerson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Person>
+    <Name>Иван</Name>
+    <Surname>Иванов</Surname>
+    <Numbers>
+      <PhoneNumber>
+        <Name>Mobile</Name>
+        <Number>3758806783</Number>
+      </PhoneNumber>
+    </Numbers>
+  </Person>
+  <Person>
+    <Name>Петя</Name>
+    <Surname>Пупкин</Surname>
+    <Numbers>
+      <PhoneNumber>
+        <Name>Mobile</Name>
+        <Number>3456678965</Number>
+      </PhoneNumber>
+    </Numbers>
+  </Person>
+</ArrayOfPerson>

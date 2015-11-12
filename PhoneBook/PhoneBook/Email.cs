@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace PhoneBook
 {
-    class Email
+    public class Email
     {
         public string Name;
         public string email;
+
+        public Email()
+        {
+        }
+
+        public Email(string Name, string email)
+        {
+            this.Name = Name;
+            this.email = email;
+        }
     }
 }

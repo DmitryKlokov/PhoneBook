@@ -10,3 +10,9 @@ c:\users\дмитрий\documents\visual studio 2015\Projects\PhoneBook\PhoneBoo
 C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\PhoneBook.exe.config
 C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug\PhoneBook.exe
 C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug\PhoneBook.pdb
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug\PhoneBook.csprojResolveAssemblyReference.cache
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug\PhoneBook.Form1.resources
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug\PhoneBook.Properties.Resources.resources
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug\PhoneBook.csproj.GenerateResource.Cache
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\PhoneBook.exe
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\PhoneBook.pdb

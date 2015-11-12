@@ -28,42 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView_persons = new System.Windows.Forms.ListView();
-            this.Column1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button_add = new System.Windows.Forms.Button();
             this.button_prop = new System.Windows.Forms.Button();
             this.panel_newPerson = new System.Windows.Forms.Panel();
-            this.labelname = new System.Windows.Forms.Label();
-            this.textBox_name = new System.Windows.Forms.TextBox();
-            this.labelsurname = new System.Windows.Forms.Label();
-            this.textBox_surname = new System.Windows.Forms.TextBox();
-            this.comboBox_phone = new System.Windows.Forms.ComboBox();
-            this.textBox_phone = new System.Windows.Forms.TextBox();
-            this.comboBox_email = new System.Windows.Forms.ComboBox();
-            this.textBox_email = new System.Windows.Forms.TextBox();
-            this.comboBox_address = new System.Windows.Forms.ComboBox();
+            this.button_add_newadress = new System.Windows.Forms.Button();
+            this.button_add_newmail = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.richTextBox_description = new System.Windows.Forms.RichTextBox();
             this.textBox_address = new System.Windows.Forms.TextBox();
+            this.button_addphone = new System.Windows.Forms.Button();
             this.button_save = new System.Windows.Forms.Button();
+            this.comboBox_address = new System.Windows.Forms.ComboBox();
+            this.textBox_email = new System.Windows.Forms.TextBox();
+            this.comboBox_email = new System.Windows.Forms.ComboBox();
+            this.textBox_phone = new System.Windows.Forms.TextBox();
+            this.comboBox_phone = new System.Windows.Forms.ComboBox();
+            this.textBox_surname = new System.Windows.Forms.TextBox();
+            this.labelsurname = new System.Windows.Forms.Label();
+            this.textBox_name = new System.Windows.Forms.TextBox();
+            this.labelname = new System.Windows.Forms.Label();
+            this.listView_persons = new System.Windows.Forms.ListView();
+            this.Contacts = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.richTextBox_person = new System.Windows.Forms.RichTextBox();
+            this.button_back = new System.Windows.Forms.Button();
             this.panel_newPerson.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // listView_persons
-            // 
-            this.listView_persons.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Column1});
-            this.listView_persons.Location = new System.Drawing.Point(12, 103);
-            this.listView_persons.Name = "listView_persons";
-            this.listView_persons.Size = new System.Drawing.Size(398, 455);
-            this.listView_persons.TabIndex = 0;
-            this.listView_persons.UseCompatibleStateImageBehavior = false;
-            this.listView_persons.View = System.Windows.Forms.View.Details;
-            // 
-            // Column1
-            // 
-            this.Column1.Text = "Контакты";
-            this.Column1.Width = 365;
             // 
             // textBox1
             // 
@@ -103,11 +94,19 @@
             this.button_prop.TabIndex = 4;
             this.button_prop.Text = "...";
             this.button_prop.UseVisualStyleBackColor = true;
+            this.button_prop.Click += new System.EventHandler(this.button_prop_Click);
             // 
             // panel_newPerson
             // 
-            this.panel_newPerson.Controls.Add(this.button_save);
+            this.panel_newPerson.AutoScroll = true;
+            this.panel_newPerson.Controls.Add(this.button_back);
+            this.panel_newPerson.Controls.Add(this.button_add_newadress);
+            this.panel_newPerson.Controls.Add(this.button_add_newmail);
+            this.panel_newPerson.Controls.Add(this.label2);
+            this.panel_newPerson.Controls.Add(this.richTextBox_description);
             this.panel_newPerson.Controls.Add(this.textBox_address);
+            this.panel_newPerson.Controls.Add(this.button_addphone);
+            this.panel_newPerson.Controls.Add(this.button_save);
             this.panel_newPerson.Controls.Add(this.comboBox_address);
             this.panel_newPerson.Controls.Add(this.textBox_email);
             this.panel_newPerson.Controls.Add(this.comboBox_email);
@@ -117,43 +116,115 @@
             this.panel_newPerson.Controls.Add(this.labelsurname);
             this.panel_newPerson.Controls.Add(this.textBox_name);
             this.panel_newPerson.Controls.Add(this.labelname);
-            this.panel_newPerson.Location = new System.Drawing.Point(429, 12);
+            this.panel_newPerson.Location = new System.Drawing.Point(12, 12);
             this.panel_newPerson.Name = "panel_newPerson";
-            this.panel_newPerson.Size = new System.Drawing.Size(405, 546);
+            this.panel_newPerson.Size = new System.Drawing.Size(822, 546);
             this.panel_newPerson.TabIndex = 5;
             this.panel_newPerson.Visible = false;
             // 
-            // labelname
+            // button_add_newadress
             // 
-            this.labelname.AutoSize = true;
-            this.labelname.Location = new System.Drawing.Point(22, 64);
-            this.labelname.Name = "labelname";
-            this.labelname.Size = new System.Drawing.Size(35, 13);
-            this.labelname.TabIndex = 0;
-            this.labelname.Text = "Name";
+            this.button_add_newadress.Location = new System.Drawing.Point(603, 387);
+            this.button_add_newadress.Name = "button_add_newadress";
+            this.button_add_newadress.Size = new System.Drawing.Size(190, 23);
+            this.button_add_newadress.TabIndex = 15;
+            this.button_add_newadress.Text = "+ adress";
+            this.button_add_newadress.UseVisualStyleBackColor = true;
+            this.button_add_newadress.Click += new System.EventHandler(this.button_add_newadress_Click);
             // 
-            // textBox_name
+            // button_add_newmail
             // 
-            this.textBox_name.Location = new System.Drawing.Point(76, 58);
-            this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(265, 20);
-            this.textBox_name.TabIndex = 1;
+            this.button_add_newmail.Location = new System.Drawing.Point(323, 387);
+            this.button_add_newmail.Name = "button_add_newmail";
+            this.button_add_newmail.Size = new System.Drawing.Size(190, 23);
+            this.button_add_newmail.TabIndex = 14;
+            this.button_add_newmail.Text = "+ mail";
+            this.button_add_newmail.UseVisualStyleBackColor = true;
+            this.button_add_newmail.Click += new System.EventHandler(this.button_add_newmail_Click);
             // 
-            // labelsurname
+            // label2
             // 
-            this.labelsurname.AutoSize = true;
-            this.labelsurname.Location = new System.Drawing.Point(22, 110);
-            this.labelsurname.Name = "labelsurname";
-            this.labelsurname.Size = new System.Drawing.Size(49, 13);
-            this.labelsurname.TabIndex = 2;
-            this.labelsurname.Text = "Surname";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(22, 173);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Description";
             // 
-            // textBox_surname
+            // richTextBox_description
             // 
-            this.textBox_surname.Location = new System.Drawing.Point(76, 103);
-            this.textBox_surname.Name = "textBox_surname";
-            this.textBox_surname.Size = new System.Drawing.Size(265, 20);
-            this.textBox_surname.TabIndex = 3;
+            this.richTextBox_description.Location = new System.Drawing.Point(25, 189);
+            this.richTextBox_description.Name = "richTextBox_description";
+            this.richTextBox_description.Size = new System.Drawing.Size(768, 126);
+            this.richTextBox_description.TabIndex = 12;
+            this.richTextBox_description.Text = "";
+            // 
+            // textBox_address
+            // 
+            this.textBox_address.Location = new System.Drawing.Point(603, 351);
+            this.textBox_address.Name = "textBox_address";
+            this.textBox_address.Size = new System.Drawing.Size(190, 20);
+            this.textBox_address.TabIndex = 9;
+            // 
+            // button_addphone
+            // 
+            this.button_addphone.Location = new System.Drawing.Point(25, 387);
+            this.button_addphone.Name = "button_addphone";
+            this.button_addphone.Size = new System.Drawing.Size(190, 23);
+            this.button_addphone.TabIndex = 11;
+            this.button_addphone.Text = "+phone";
+            this.button_addphone.UseVisualStyleBackColor = true;
+            this.button_addphone.Click += new System.EventHandler(this.button_addphone_Click);
+            // 
+            // button_save
+            // 
+            this.button_save.Location = new System.Drawing.Point(308, 492);
+            this.button_save.Name = "button_save";
+            this.button_save.Size = new System.Drawing.Size(218, 51);
+            this.button_save.TabIndex = 10;
+            this.button_save.Text = "Save";
+            this.button_save.UseVisualStyleBackColor = true;
+            this.button_save.Click += new System.EventHandler(this.button_save_Click);
+            // 
+            // comboBox_address
+            // 
+            this.comboBox_address.FormattingEnabled = true;
+            this.comboBox_address.Items.AddRange(new object[] {
+            "Personal address",
+            "Working address",
+            "Another address"});
+            this.comboBox_address.Location = new System.Drawing.Point(603, 333);
+            this.comboBox_address.Name = "comboBox_address";
+            this.comboBox_address.Size = new System.Drawing.Size(190, 21);
+            this.comboBox_address.TabIndex = 8;
+            this.comboBox_address.Text = "Personal address";
+            // 
+            // textBox_email
+            // 
+            this.textBox_email.Location = new System.Drawing.Point(323, 351);
+            this.textBox_email.Name = "textBox_email";
+            this.textBox_email.Size = new System.Drawing.Size(190, 20);
+            this.textBox_email.TabIndex = 7;
+            // 
+            // comboBox_email
+            // 
+            this.comboBox_email.FormattingEnabled = true;
+            this.comboBox_email.Items.AddRange(new object[] {
+            "Personal mail",
+            "Working mail",
+            "Another mail"});
+            this.comboBox_email.Location = new System.Drawing.Point(323, 333);
+            this.comboBox_email.Name = "comboBox_email";
+            this.comboBox_email.Size = new System.Drawing.Size(190, 21);
+            this.comboBox_email.TabIndex = 6;
+            this.comboBox_email.Text = "Personal mail";
+            // 
+            // textBox_phone
+            // 
+            this.textBox_phone.Location = new System.Drawing.Point(25, 351);
+            this.textBox_phone.Name = "textBox_phone";
+            this.textBox_phone.Size = new System.Drawing.Size(190, 20);
+            this.textBox_phone.TabIndex = 5;
             // 
             // comboBox_phone
             // 
@@ -166,68 +237,82 @@
             "Pager",
             "Home fax",
             "Business fax"});
-            this.comboBox_phone.Location = new System.Drawing.Point(25, 159);
+            this.comboBox_phone.Location = new System.Drawing.Point(25, 333);
             this.comboBox_phone.Name = "comboBox_phone";
-            this.comboBox_phone.Size = new System.Drawing.Size(316, 21);
+            this.comboBox_phone.Size = new System.Drawing.Size(190, 21);
             this.comboBox_phone.TabIndex = 4;
             this.comboBox_phone.Text = "Mobile";
             // 
-            // textBox_phone
+            // textBox_surname
             // 
-            this.textBox_phone.Location = new System.Drawing.Point(25, 186);
-            this.textBox_phone.Name = "textBox_phone";
-            this.textBox_phone.Size = new System.Drawing.Size(316, 20);
-            this.textBox_phone.TabIndex = 5;
+            this.textBox_surname.Location = new System.Drawing.Point(76, 103);
+            this.textBox_surname.Name = "textBox_surname";
+            this.textBox_surname.Size = new System.Drawing.Size(265, 20);
+            this.textBox_surname.TabIndex = 3;
             // 
-            // comboBox_email
+            // labelsurname
             // 
-            this.comboBox_email.FormattingEnabled = true;
-            this.comboBox_email.Items.AddRange(new object[] {
-            "Personal mail",
-            "Working mail",
-            "Another mail"});
-            this.comboBox_email.Location = new System.Drawing.Point(25, 256);
-            this.comboBox_email.Name = "comboBox_email";
-            this.comboBox_email.Size = new System.Drawing.Size(316, 21);
-            this.comboBox_email.TabIndex = 6;
-            this.comboBox_email.Text = "Personal mail";
+            this.labelsurname.AutoSize = true;
+            this.labelsurname.Location = new System.Drawing.Point(22, 110);
+            this.labelsurname.Name = "labelsurname";
+            this.labelsurname.Size = new System.Drawing.Size(49, 13);
+            this.labelsurname.TabIndex = 2;
+            this.labelsurname.Text = "Surname";
             // 
-            // textBox_email
+            // textBox_name
             // 
-            this.textBox_email.Location = new System.Drawing.Point(25, 284);
-            this.textBox_email.Name = "textBox_email";
-            this.textBox_email.Size = new System.Drawing.Size(316, 20);
-            this.textBox_email.TabIndex = 7;
+            this.textBox_name.Location = new System.Drawing.Point(76, 58);
+            this.textBox_name.Name = "textBox_name";
+            this.textBox_name.Size = new System.Drawing.Size(265, 20);
+            this.textBox_name.TabIndex = 1;
             // 
-            // comboBox_address
+            // labelname
             // 
-            this.comboBox_address.FormattingEnabled = true;
-            this.comboBox_address.Items.AddRange(new object[] {
-            "Personal address",
-            "Working address",
-            "Another address"});
-            this.comboBox_address.Location = new System.Drawing.Point(25, 356);
-            this.comboBox_address.Name = "comboBox_address";
-            this.comboBox_address.Size = new System.Drawing.Size(316, 21);
-            this.comboBox_address.TabIndex = 8;
-            this.comboBox_address.Text = "Personal address";
+            this.labelname.AutoSize = true;
+            this.labelname.Location = new System.Drawing.Point(22, 64);
+            this.labelname.Name = "labelname";
+            this.labelname.Size = new System.Drawing.Size(35, 13);
+            this.labelname.TabIndex = 0;
+            this.labelname.Text = "Name";
             // 
-            // textBox_address
+            // listView_persons
             // 
-            this.textBox_address.Location = new System.Drawing.Point(25, 383);
-            this.textBox_address.Name = "textBox_address";
-            this.textBox_address.Size = new System.Drawing.Size(316, 20);
-            this.textBox_address.TabIndex = 9;
+            this.listView_persons.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Contacts});
+            this.listView_persons.Location = new System.Drawing.Point(12, 103);
+            this.listView_persons.Name = "listView_persons";
+            this.listView_persons.Size = new System.Drawing.Size(398, 455);
+            this.listView_persons.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.listView_persons.TabIndex = 6;
+            this.listView_persons.UseCompatibleStateImageBehavior = false;
+            this.listView_persons.View = System.Windows.Forms.View.Details;
+            this.listView_persons.SelectedIndexChanged += new System.EventHandler(this.listView_persons_SelectedIndexChanged);
             // 
-            // button_save
+            // Contacts
             // 
-            this.button_save.Location = new System.Drawing.Point(86, 441);
-            this.button_save.Name = "button_save";
-            this.button_save.Size = new System.Drawing.Size(203, 51);
-            this.button_save.TabIndex = 10;
-            this.button_save.Text = "Save";
-            this.button_save.UseVisualStyleBackColor = true;
-            this.button_save.Click += new System.EventHandler(this.button_save_Click);
+            this.Contacts.Text = "Contacts";
+            this.Contacts.Width = 359;
+            // 
+            // richTextBox_person
+            // 
+            this.richTextBox_person.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox_person.Enabled = false;
+            this.richTextBox_person.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.richTextBox_person.Location = new System.Drawing.Point(423, 129);
+            this.richTextBox_person.Name = "richTextBox_person";
+            this.richTextBox_person.Size = new System.Drawing.Size(422, 429);
+            this.richTextBox_person.TabIndex = 7;
+            this.richTextBox_person.Text = "";
+            // 
+            // button_back
+            // 
+            this.button_back.Location = new System.Drawing.Point(25, 22);
+            this.button_back.Name = "button_back";
+            this.button_back.Size = new System.Drawing.Size(75, 23);
+            this.button_back.TabIndex = 16;
+            this.button_back.Text = "Back";
+            this.button_back.UseVisualStyleBackColor = true;
+            this.button_back.Click += new System.EventHandler(this.button_back_Click);
             // 
             // Form1
             // 
@@ -239,6 +324,7 @@
             this.Controls.Add(this.button_add);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.richTextBox_person);
             this.Controls.Add(this.listView_persons);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -251,9 +337,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView listView_persons;
-        private System.Windows.Forms.ColumnHeader Column1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_add;
@@ -270,6 +353,15 @@
         private System.Windows.Forms.Label labelsurname;
         private System.Windows.Forms.TextBox textBox_name;
         private System.Windows.Forms.Label labelname;
+        private System.Windows.Forms.ListView listView_persons;
+        private System.Windows.Forms.ColumnHeader Contacts;
+        private System.Windows.Forms.RichTextBox richTextBox_person;
+        private System.Windows.Forms.Button button_addphone;
+        private System.Windows.Forms.Button button_add_newmail;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox richTextBox_description;
+        private System.Windows.Forms.Button button_add_newadress;
+        private System.Windows.Forms.Button button_back;
     }
 }
 
