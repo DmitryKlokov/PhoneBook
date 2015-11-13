@@ -33,6 +33,8 @@
             this.button_add = new System.Windows.Forms.Button();
             this.button_prop = new System.Windows.Forms.Button();
             this.panel_newPerson = new System.Windows.Forms.Panel();
+            this.pictureBox_newImage = new System.Windows.Forms.PictureBox();
+            this.button_back = new System.Windows.Forms.Button();
             this.button_add_newadress = new System.Windows.Forms.Button();
             this.button_add_newmail = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -52,8 +54,12 @@
             this.listView_persons = new System.Windows.Forms.ListView();
             this.Contacts = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.richTextBox_person = new System.Windows.Forms.RichTextBox();
-            this.button_back = new System.Windows.Forms.Button();
+            this.listView_navigation = new System.Windows.Forms.ListView();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.pictureBox_person = new System.Windows.Forms.PictureBox();
             this.panel_newPerson.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_newImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -99,6 +105,7 @@
             // panel_newPerson
             // 
             this.panel_newPerson.AutoScroll = true;
+            this.panel_newPerson.Controls.Add(this.pictureBox_newImage);
             this.panel_newPerson.Controls.Add(this.button_back);
             this.panel_newPerson.Controls.Add(this.button_add_newadress);
             this.panel_newPerson.Controls.Add(this.button_add_newmail);
@@ -121,6 +128,26 @@
             this.panel_newPerson.Size = new System.Drawing.Size(822, 546);
             this.panel_newPerson.TabIndex = 5;
             this.panel_newPerson.Visible = false;
+            // 
+            // pictureBox_newImage
+            // 
+            this.pictureBox_newImage.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pictureBox_newImage.Location = new System.Drawing.Point(585, 7);
+            this.pictureBox_newImage.Name = "pictureBox_newImage";
+            this.pictureBox_newImage.Size = new System.Drawing.Size(208, 168);
+            this.pictureBox_newImage.TabIndex = 17;
+            this.pictureBox_newImage.TabStop = false;
+            this.pictureBox_newImage.Click += new System.EventHandler(this.pictureBox_newImage_Click);
+            // 
+            // button_back
+            // 
+            this.button_back.Location = new System.Drawing.Point(25, 22);
+            this.button_back.Name = "button_back";
+            this.button_back.Size = new System.Drawing.Size(75, 23);
+            this.button_back.TabIndex = 16;
+            this.button_back.Text = "Back";
+            this.button_back.UseVisualStyleBackColor = true;
+            this.button_back.Click += new System.EventHandler(this.button_back_Click);
             // 
             // button_add_newadress
             // 
@@ -279,6 +306,8 @@
             // 
             this.listView_persons.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Contacts});
+            this.listView_persons.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.45F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView_persons.FullRowSelect = true;
             this.listView_persons.Location = new System.Drawing.Point(12, 103);
             this.listView_persons.Name = "listView_persons";
             this.listView_persons.Size = new System.Drawing.Size(398, 455);
@@ -298,21 +327,34 @@
             this.richTextBox_person.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox_person.Enabled = false;
             this.richTextBox_person.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox_person.Location = new System.Drawing.Point(423, 129);
+            this.richTextBox_person.Location = new System.Drawing.Point(423, 169);
             this.richTextBox_person.Name = "richTextBox_person";
-            this.richTextBox_person.Size = new System.Drawing.Size(422, 429);
+            this.richTextBox_person.Size = new System.Drawing.Size(422, 389);
             this.richTextBox_person.TabIndex = 7;
             this.richTextBox_person.Text = "";
             // 
-            // button_back
+            // listView_navigation
             // 
-            this.button_back.Location = new System.Drawing.Point(25, 22);
-            this.button_back.Name = "button_back";
-            this.button_back.Size = new System.Drawing.Size(75, 23);
-            this.button_back.TabIndex = 16;
-            this.button_back.Text = "Back";
-            this.button_back.UseVisualStyleBackColor = true;
-            this.button_back.Click += new System.EventHandler(this.button_back_Click);
+            this.listView_navigation.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.45F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView_navigation.Location = new System.Drawing.Point(12, 103);
+            this.listView_navigation.Name = "listView_navigation";
+            this.listView_navigation.Size = new System.Drawing.Size(398, 454);
+            this.listView_navigation.TabIndex = 8;
+            this.listView_navigation.UseCompatibleStateImageBehavior = false;
+            this.listView_navigation.Visible = false;
+            this.listView_navigation.SelectedIndexChanged += new System.EventHandler(this.listView_navigation_SelectedIndexChanged);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // pictureBox_person
+            // 
+            this.pictureBox_person.Location = new System.Drawing.Point(423, 19);
+            this.pictureBox_person.Name = "pictureBox_person";
+            this.pictureBox_person.Size = new System.Drawing.Size(173, 150);
+            this.pictureBox_person.TabIndex = 9;
+            this.pictureBox_person.TabStop = false;
             // 
             // Form1
             // 
@@ -320,17 +362,21 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(846, 570);
             this.Controls.Add(this.panel_newPerson);
+            this.Controls.Add(this.listView_navigation);
             this.Controls.Add(this.button_prop);
             this.Controls.Add(this.button_add);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.richTextBox_person);
             this.Controls.Add(this.listView_persons);
+            this.Controls.Add(this.pictureBox_person);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel_newPerson.ResumeLayout(false);
             this.panel_newPerson.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_newImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -362,6 +408,10 @@
         private System.Windows.Forms.RichTextBox richTextBox_description;
         private System.Windows.Forms.Button button_add_newadress;
         private System.Windows.Forms.Button button_back;
+        private System.Windows.Forms.ListView listView_navigation;
+        private System.Windows.Forms.PictureBox pictureBox_newImage;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.PictureBox pictureBox_person;
     }
 }
 

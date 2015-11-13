@@ -28,13 +28,28 @@ namespace PhoneBook
             Deserialize();
             foreach (var p in persons)
             {
-                listView_persons.Items.Add(p.Name+" "+p.Surname);
+                listView_persons.Items.Add(p.Name+" "+p.Surname, p.Name + " " + p.Surname);
             }
-            //listView_persons.Items[43].Selected = true;
-            //listView_persons.EnsureVisible(listView_persons.Items.Count-1);
-            //listView_persons.EnsureVisible(43);
+            listview();
         }
-        
+        List<string> bukvi = new List<string>();
+        void listview()
+        {
+            for(int i=0;i<listView_persons.Items.Count;i++)
+            {
+                string s = listView_persons.Items[i].Text;
+                if (!bukvi.Contains(s.Substring(0, 1).ToUpper()))
+                {
+                    ListViewItem li = new ListViewItem();
+                    li.Text = s.Substring(0, 1).ToUpper();
+                    li.Name = s.Substring(0, 1).ToUpper();
+                    listView_persons.Items.Insert(i, li);
+                    listView_persons.Items[i].BackColor = Color.Beige;
+                    bukvi.Add(s.Substring(0, 1).ToUpper());
+                }
+            }
+        }
+
         private void button_add_Click(object sender, EventArgs e)
         {
             panel_newPerson.Visible = true;
@@ -64,23 +79,45 @@ namespace PhoneBook
                 {
                     if (nc.value.Text != "") p.Addresses.Add(new Address(nc.key.Text, nc.value.Text));
                 }
+                p.Description = richTextBox_description.Text;
+                if (pictureBox_newImage.Image != null) p.LargeIcon = (Bitmap)pictureBox_newImage.Image;
                 persons.Add(p);
+                persons.Sort();
                 listView_persons.Items.Add(p.Name + " " + p.Surname);
                 vsenazad();
+                listview();
             }
         }
-
-        
 
         private void listView_persons_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView_persons.SelectedIndices.Count > 0)
             {
                 richTextBox_person.Text = "";
-
-                richTextBox_person.Text += persons[listView_persons.SelectedIndices[0]].ToString();
-            }
+                pictureBox_person.Image = null;
+                int index =
+                    persons.FindIndex(
+                        (per) =>
+                            per.Name + " " + per.Surname ==
+                            listView_persons.Items[listView_persons.SelectedIndices[0]].Text);
+                if (index >= 0)
+                {
+                    richTextBox_person.Text += persons[index].ToString();
+                    pictureBox_person.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox_person.Image = persons[index].LargeIcon;
+                }
+                else
+                {
+                    listView_navigation.Visible = true;
+                    listView_navigation.Items.Clear();
+                    foreach (string s in bukvi)
+                    {
+                        listView_navigation.Items.Add(s, s);
+                    }
+                }
         }
+    }
+        
         private void Serialize()
         {
             FileStream fs = new FileStream("crc.xml", FileMode.Create);
@@ -170,6 +207,35 @@ namespace PhoneBook
             textBox_name.Text = "";
             textBox_surname.Text = "";
             richTextBox_description.Text = "";
+        }
+
+        private void listView_navigation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView_navigation.SelectedIndices.Count > 0)
+            {
+                listView_navigation.Visible = false;
+                int index = listView_persons.Items[listView_navigation.Items[listView_navigation.SelectedIndices[0]].Text].Index;
+                listView_persons.Items[index].Selected = true;
+                listView_persons.EnsureVisible(listView_persons.Items.Count - 1);
+                listView_persons.EnsureVisible(index);
+            }
+        }
+
+        private void pictureBox_newImage_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    pictureBox_newImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    Bitmap MyImage = new Bitmap(openFileDialog1.FileName);
+                    pictureBox_newImage.Image = MyImage;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                }
+            }
         }
     }
 }
