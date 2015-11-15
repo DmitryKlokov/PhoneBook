@@ -16,3 +16,4 @@ C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug
 C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug\PhoneBook.csproj.GenerateResource.Cache
 C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\PhoneBook.exe
 C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\PhoneBook.pdb
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug\PhoneBook.Form2.resources

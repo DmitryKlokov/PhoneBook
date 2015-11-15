@@ -4,10 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
 using System.Xml.Serialization;
 
 namespace PhoneBook
@@ -16,9 +12,9 @@ namespace PhoneBook
     {
         public string Name;
         public string Surname;
-        public List<PhoneNumber> Numbers;
-        public List<Email> Emails;
-        public List<Address> Addresses;
+        public List<Field> Phones;
+        public List<Field> Emails;
+        public List<Field> Addresses;
         public string Description;
 
         [XmlIgnore]
@@ -55,9 +51,9 @@ namespace PhoneBook
 
         public Person()
         {
-            Numbers = new List<PhoneNumber>();
-            Emails = new List<Email>();
-            Addresses = new List<Address>();
+            Phones = new List<Field>();
+            Emails = new List<Field>();
+            Addresses = new List<Field>();
         }
 
         public int CompareTo(object obj)
@@ -75,14 +71,14 @@ namespace PhoneBook
         {
             string str = Name + " " + Surname + " \n";
             str += "\n";
-            foreach (var number in Numbers)
+            foreach (var number in Phones)
             {
-                str += number.Name+" " + number.Number+"\n";
+                str += number.Name+" " + number.Value+"\n";
             }
             str += "\n";
             foreach (var email in Emails)
             {
-                str += email.Name + " " + email.email+ "\n";
+                str += email.Name + " " + email.Value+ "\n";
             }
             str += "\n";
             foreach (var addess in Addresses)
