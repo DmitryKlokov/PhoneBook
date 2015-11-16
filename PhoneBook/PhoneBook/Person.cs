@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace PhoneBook
 {
     public class Person:IComparable
     {
+        public string Id => ToString();
         public string Name;
         public string Surname;
         public List<Field> Phones;
@@ -27,7 +29,7 @@ namespace PhoneBook
             get
             { // serialize
                 if (LargeIcon == null) return null;
-                using (MemoryStream ms = new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
                     LargeIcon.Save(ms, ImageFormat.Bmp);
                     return ms.ToArray();
@@ -41,7 +43,7 @@ namespace PhoneBook
                 }
                 else
                 {
-                    using (MemoryStream ms = new MemoryStream(value))
+                    using (var ms = new MemoryStream(value))
                     {
                         LargeIcon = new Bitmap(ms);
                     }
@@ -60,31 +62,20 @@ namespace PhoneBook
         {
             if (obj == null) return 1;
 
-            Person otherPerson = obj as Person;
-            if (otherPerson != null)
-                return Name.CompareTo(otherPerson.Name);
-            else
-                throw new ArgumentException("Object is not a Person");
+            var otherPerson = obj as Person;
+            if (otherPerson != null) return string.Compare(Name, otherPerson.Name, StringComparison.Ordinal);
+            throw new ArgumentException("Object is not a Person");
         }
 
         public override string ToString()
         {
-            string str = Name + " " + Surname + " \n";
+            var str = Name + " " + Surname + " \n";
             str += "\n";
-            foreach (var number in Phones)
-            {
-                str += number.Name+" " + number.Value+"\n";
-            }
+            str = Phones.Aggregate(str, (current, number) => current + (number.Name + " " + number.Value + "\n"));
             str += "\n";
-            foreach (var email in Emails)
-            {
-                str += email.Name + " " + email.Value+ "\n";
-            }
+            str = Emails.Aggregate(str, (current, email) => current + (email.Name + " " + email.Value + "\n"));
             str += "\n";
-            foreach (var addess in Addresses)
-            {
-                str += addess.Name + " " + addess.Value + "\n";
-            }
+            str = Addresses.Aggregate(str, (current, addess) => current + (addess.Name + " " + addess.Value + "\n"));
             return str+"\n"+ Description;
         }
     }

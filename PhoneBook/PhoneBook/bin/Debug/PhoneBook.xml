@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<ArrayOfPerson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Person>
+    <Name>dwedwe</Name>
+    <Surname>wed</Surname>
+    <Phones />
+    <Emails />
+    <Addresses />
+    <Description />
+  </Person>
+  <Person>
+    <Name>rtgrt</Name>
+    <Surname>grtgr</Surname>
+    <Phones />
+    <Emails />
+    <Addresses />
+    <Description />
+  </Person>
+  <Person>
+    <Name>scdssd</Name>
+    <Surname>wedwe</Surname>
+    <Phones />
+    <Emails />
+    <Addresses />
+    <Description />
+  </Person>
+  <Person>
+    <Name>укку</Name>
+    <Surname>укау</Surname>
+    <Phones>
+      <Field>
+        <Name>Mobile</Name>
+        <Value>34</Value>
+      </Field>
+    </Phones>
+    <Emails />
+    <Addresses />
+    <Description />
+  </Person>
+  <Person>
+    <Name>цувц</Name>
+    <Surname>уцвцу</Surname>
+    <Phones />
+    <Emails />
+    <Addresses />
+    <Description />
+  </Person>
+  <Person>
+    <Name>ццц</Name>
+    <Surname>всв</Surname>
+    <Phones>
+      <Field>
+        <Name>Mobile</Name>
+        <Value>3434</Value>
+      </Field>
+    </Phones>
+    <Emails />
+    <Addresses />
+    <Description>уву</Description>
+  </Person>
+  <Person>
+    <Name>ыыы</Name>
+    <Surname>укау</Surname>
+    <Phones>
+      <Field>
+        <Name>Mobile</Name>
+        <Value>3434</Value>
+      </Field>
+      <Field>
+        <Name>Mobile</Name>
+        <Value>укаук</Value>
+      </Field>
+    </Phones>
+    <Emails />
+    <Addresses />
+    <Description>укаку</Description>
+  </Person>
+</ArrayOfPerson>
