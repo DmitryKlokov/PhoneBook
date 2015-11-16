@@ -136,11 +136,12 @@
             // 
             this.listView_persons.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2});
-            this.listView_persons.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.45F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView_persons.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView_persons.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView_persons.Location = new System.Drawing.Point(12, 114);
             this.listView_persons.Name = "listView_persons";
             this.listView_persons.Size = new System.Drawing.Size(398, 444);
+            this.listView_persons.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView_persons.TabIndex = 13;
             this.listView_persons.UseCompatibleStateImageBehavior = false;
             this.listView_persons.View = System.Windows.Forms.View.Details;

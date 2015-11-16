@@ -35,17 +35,26 @@ namespace PhoneBook
 
         public void Serialize()
         {
-            var fs = new FileStream("PhoneBook.xml", FileMode.Create);
-            var serializer = new XmlSerializer(typeof(List<Person>));
-            serializer.Serialize(fs, _persons);
-            fs.Close();
+            using (var fs = new FileStream("PhoneBook.xml", FileMode.Create))
+            {
+                var serializer = new XmlSerializer(typeof (List<Person>));
+                serializer.Serialize(fs, _persons);
+            }
         }
         private void Deserialize()
         {
-            var fs = new FileStream("PhoneBook.xml", FileMode.Open);
-            var serializer = new XmlSerializer(typeof(List<Person>));
-            _persons=(List<Person>)serializer.Deserialize(fs);
-            fs.Close();
+            try
+            {
+                using (var fs = new FileStream("PhoneBook.xml", FileMode.Open))
+                {
+                    var serializer = new XmlSerializer(typeof (List<Person>));
+                    _persons = (List<Person>) serializer.Deserialize(fs);
+                }
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         public PersonsManager()
