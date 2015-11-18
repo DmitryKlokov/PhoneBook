@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Xml.Serialization;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace PhoneBook
 {
@@ -14,7 +15,7 @@ namespace PhoneBook
             _persons.Sort();
             Serialize();
         }
-        
+
         public Person GetPerson(string nameAndSurname)
         {
             var index = _persons.FindIndex(p =>p.Name + " " + p.Surname == nameAndSurname);
@@ -32,29 +33,29 @@ namespace PhoneBook
             return _persons;
         }
 
+        public bool Exists(Person person)
+        {
+            return _persons.Any(p => p.Id == person.Id);
+        }
 
         public void Serialize()
         {
-            using (var fs = new FileStream("PhoneBook.xml", FileMode.Create))
+            using (var stream = new FileStream("file1.data", FileMode.Create))
             {
-                var serializer = new XmlSerializer(typeof (List<Person>));
-                serializer.Serialize(fs, _persons);
+                var ser = new BinaryFormatter();
+                ser.Serialize(stream, _persons);
             }
+
         }
-        private void Deserialize()
+
+        public void Deserialize()
         {
-            try
+            using (var stream = new FileStream("file1.data", FileMode.Open))
             {
-                using (var fs = new FileStream("PhoneBook.xml", FileMode.Open))
-                {
-                    var serializer = new XmlSerializer(typeof (List<Person>));
-                    _persons = (List<Person>) serializer.Deserialize(fs);
-                }
+                var ser = new BinaryFormatter();
+                _persons = ser.Deserialize(stream) as List<Person>;
             }
-            catch
-            {
-                // ignored
-            }
+
         }
 
         public PersonsManager()

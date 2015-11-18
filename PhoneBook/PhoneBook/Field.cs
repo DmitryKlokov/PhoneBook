@@ -1,5 +1,8 @@
-﻿namespace PhoneBook
+﻿using System;
+
+namespace PhoneBook
 {
+    [Serializable]
     public class Field
     {
         public string Name;

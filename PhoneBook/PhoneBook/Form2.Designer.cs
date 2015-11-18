@@ -32,13 +32,11 @@
             this.labelname = new System.Windows.Forms.Label();
             this.textBox_surname = new System.Windows.Forms.TextBox();
             this.labelsurname = new System.Windows.Forms.Label();
-            this.pictureBox_newImage = new System.Windows.Forms.PictureBox();
             this.richTextBox_description = new System.Windows.Forms.RichTextBox();
             this.button_add_newadress = new System.Windows.Forms.Button();
             this.button_add_newmail = new System.Windows.Forms.Button();
             this.textBox_address = new System.Windows.Forms.TextBox();
             this.button_addphone = new System.Windows.Forms.Button();
-            this.button_save = new System.Windows.Forms.Button();
             this.comboBox_address = new System.Windows.Forms.ComboBox();
             this.textBox_email = new System.Windows.Forms.TextBox();
             this.comboBox_email = new System.Windows.Forms.ComboBox();
@@ -46,8 +44,10 @@
             this.comboBox_phone = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_newImage)).BeginInit();
+            this.button_save = new System.Windows.Forms.Button();
+            this.pictureBox_newImage = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_newImage)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox_name
@@ -82,16 +82,6 @@
             this.labelsurname.TabIndex = 5;
             this.labelsurname.Text = "Surname";
             // 
-            // pictureBox_newImage
-            // 
-            this.pictureBox_newImage.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox_newImage.Location = new System.Drawing.Point(436, 0);
-            this.pictureBox_newImage.Name = "pictureBox_newImage";
-            this.pictureBox_newImage.Size = new System.Drawing.Size(208, 168);
-            this.pictureBox_newImage.TabIndex = 18;
-            this.pictureBox_newImage.TabStop = false;
-            this.pictureBox_newImage.Click += new System.EventHandler(this.pictureBox_newImage_Click);
-            // 
             // richTextBox_description
             // 
             this.richTextBox_description.Location = new System.Drawing.Point(17, 174);
@@ -105,7 +95,7 @@
             this.button_add_newadress.BackColor = System.Drawing.SystemColors.Window;
             this.button_add_newadress.Location = new System.Drawing.Point(557, 386);
             this.button_add_newadress.Name = "button_add_newadress";
-            this.button_add_newadress.Size = new System.Drawing.Size(190, 23);
+            this.button_add_newadress.Size = new System.Drawing.Size(190, 40);
             this.button_add_newadress.TabIndex = 29;
             this.button_add_newadress.Text = "+ adress";
             this.button_add_newadress.UseVisualStyleBackColor = false;
@@ -116,7 +106,7 @@
             this.button_add_newmail.BackColor = System.Drawing.SystemColors.Window;
             this.button_add_newmail.Location = new System.Drawing.Point(294, 386);
             this.button_add_newmail.Name = "button_add_newmail";
-            this.button_add_newmail.Size = new System.Drawing.Size(190, 23);
+            this.button_add_newmail.Size = new System.Drawing.Size(190, 40);
             this.button_add_newmail.TabIndex = 28;
             this.button_add_newmail.Text = "+ mail";
             this.button_add_newmail.UseVisualStyleBackColor = false;
@@ -134,22 +124,11 @@
             this.button_addphone.BackColor = System.Drawing.SystemColors.Window;
             this.button_addphone.Location = new System.Drawing.Point(17, 386);
             this.button_addphone.Name = "button_addphone";
-            this.button_addphone.Size = new System.Drawing.Size(190, 23);
+            this.button_addphone.Size = new System.Drawing.Size(190, 40);
             this.button_addphone.TabIndex = 27;
             this.button_addphone.Text = "+phone";
             this.button_addphone.UseVisualStyleBackColor = false;
             this.button_addphone.Click += new System.EventHandler(this.button_addphone_Click);
-            // 
-            // button_save
-            // 
-            this.button_save.BackColor = System.Drawing.SystemColors.Window;
-            this.button_save.Location = new System.Drawing.Point(280, 455);
-            this.button_save.Name = "button_save";
-            this.button_save.Size = new System.Drawing.Size(218, 51);
-            this.button_save.TabIndex = 26;
-            this.button_save.Text = "Save";
-            this.button_save.UseVisualStyleBackColor = false;
-            this.button_save.Click += new System.EventHandler(this.button_save_Click);
             // 
             // comboBox_address
             // 
@@ -237,6 +216,30 @@
             this.panel1.Size = new System.Drawing.Size(767, 509);
             this.panel1.TabIndex = 30;
             // 
+            // button_save
+            // 
+            this.button_save.BackColor = System.Drawing.SystemColors.Window;
+            this.button_save.BackgroundImage = global::PhoneBook.Properties.Resources.save;
+            this.button_save.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_save.FlatAppearance.BorderSize = 0;
+            this.button_save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_save.Location = new System.Drawing.Point(662, 3);
+            this.button_save.Name = "button_save";
+            this.button_save.Size = new System.Drawing.Size(85, 85);
+            this.button_save.TabIndex = 26;
+            this.button_save.UseVisualStyleBackColor = false;
+            this.button_save.Click += new System.EventHandler(this.button_save_Click);
+            // 
+            // pictureBox_newImage
+            // 
+            this.pictureBox_newImage.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pictureBox_newImage.Location = new System.Drawing.Point(436, 0);
+            this.pictureBox_newImage.Name = "pictureBox_newImage";
+            this.pictureBox_newImage.Size = new System.Drawing.Size(180, 168);
+            this.pictureBox_newImage.TabIndex = 18;
+            this.pictureBox_newImage.TabStop = false;
+            this.pictureBox_newImage.Click += new System.EventHandler(this.pictureBox_newImage_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,12 +247,14 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(794, 533);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MinimizeBox = false;
             this.Name = "Form2";
             this.Text = "PhoneBook";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_newImage)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_newImage)).EndInit();
             this.ResumeLayout(false);
 
         }
