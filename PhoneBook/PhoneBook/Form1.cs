@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -19,6 +21,8 @@ namespace PhoneBook
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'phoneBookDBDataSet.Person' table. You can move, or remove it, as needed.
+            this.personTableAdapter.Fill(this.phoneBookDBDataSet.Person);
             foreach (var p in _pm.GetPersons())
             {
                 if (!ImageList1.Images.ContainsKey(p.Id))
@@ -29,8 +33,31 @@ namespace PhoneBook
                 listView_persons.Items.Add(new ListViewItem { Text = p.Name + @" " + p.Surname, Name = p.Id ,ImageKey = p.Id});
             }
             ShowQuickNavigation();
+
+            phoneBookDBDataSet.Person.AddPersonRow(1, "name","surname");
+
+            SqlConnection con = new SqlConnection(@"data source=(LocalDb)\MSSQLLocalDB;initial catalog=PhoneBook.Model1;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            SqlDataAdapter adapter = new SqlDataAdapter();
+
+            SqlCommand command = new SqlCommand(
+        "INSERT INTO Person (Id, name, surname) " +
+        "VALUES (@Id, @name, @ surname)", con);
+
+            command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier, 2);
+            command.Parameters.Add("@name", SqlDbType.NVarChar, 40, "CompanyName");
+            command.Parameters.Add("@surname", SqlDbType.NVarChar, 40, "Companysurname");
+            adapter.InsertCommand = command;
+
+            
+
+            //this.Validate();
+            //phoneBookDBDataSet.AcceptChanges();
+            //personTableAdapter.Adapter.Update(phoneBookDBDataSet);
+            //this.tableAdapterManager.UpdateAll(this.phoneBookDBDataSet);
+            MessageBox.Show(phoneBookDBDataSet.Person.Count.ToString());
+
         }
-        
+
 
         public void ShowQuickNavigation()
         {
@@ -138,5 +165,6 @@ namespace PhoneBook
             listView_persons.EnsureVisible(listView_persons.Items.Count - 1);
             listView_persons.EnsureVisible(index);
         }
+        
     }
 }

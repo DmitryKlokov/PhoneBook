@@ -17,3 +17,9 @@ C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug
 C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\PhoneBook.exe
 C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\PhoneBook.pdb
 C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\obj\Debug\PhoneBook.Form2.resources
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\PhoneBookDB.mdf
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\PhoneBookDB_log.ldf
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\EntityFramework.dll
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\EntityFramework.xml
+C:\Users\Дмитрий\Documents\GitHub\PhoneBook\PhoneBook\PhoneBook\bin\Debug\EntityFramework.SqlServer.xml

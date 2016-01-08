@@ -41,7 +41,11 @@
             this.button_removePerson = new System.Windows.Forms.Button();
             this.button_edit = new System.Windows.Forms.Button();
             this.pictureBox_person = new System.Windows.Forms.PictureBox();
+            this.phoneBookDBDataSet = new PhoneBook.PhoneBookDBDataSet();
+            this.personTableAdapter = new PhoneBook.PhoneBookDBDataSetTableAdapters.PersonTableAdapter();
+            this.tableAdapterManager = new PhoneBook.PhoneBookDBDataSetTableAdapters.TableAdapterManager();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phoneBookDBDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox_find
@@ -182,13 +186,31 @@
             this.pictureBox_person.TabIndex = 9;
             this.pictureBox_person.TabStop = false;
             // 
+            // phoneBookDBDataSet
+            // 
+            this.phoneBookDBDataSet.DataSetName = "PhoneBookDBDataSet";
+            this.phoneBookDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // personTableAdapter
+            // 
+            this.personTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.AddressTableAdapter = null;
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.EmailTableAdapter = null;
+            this.tableAdapterManager.PersonTableAdapter = this.personTableAdapter;
+            this.tableAdapterManager.PhoneTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = PhoneBook.PhoneBookDBDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImage = global::PhoneBook.Properties.Resources.background;
-            this.ClientSize = new System.Drawing.Size(846, 570);
+            this.ClientSize = new System.Drawing.Size(865, 590);
             this.Controls.Add(this.listView_quickNavigation);
             this.Controls.Add(this.button_removePerson);
             this.Controls.Add(this.label2);
@@ -205,6 +227,7 @@
             this.Text = "PhoneBook";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_person)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.phoneBookDBDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,6 +247,9 @@
         public System.Windows.Forms.ListView listView_persons;
         private System.Windows.Forms.ListView listView_quickNavigation;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private PhoneBookDBDataSet phoneBookDBDataSet;
+        private PhoneBookDBDataSetTableAdapters.PersonTableAdapter personTableAdapter;
+        private PhoneBookDBDataSetTableAdapters.TableAdapterManager tableAdapterManager;
     }
 }
 
