@@ -44,8 +44,8 @@
             this.comboBox_phone = new System.Windows.Forms.ComboBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button_save = new System.Windows.Forms.Button();
             this.pictureBox_newImage = new System.Windows.Forms.PictureBox();
+            this.button_save = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_newImage)).BeginInit();
             this.SuspendLayout();
@@ -195,8 +195,8 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.panel1.Controls.Add(this.button_save);
             this.panel1.Controls.Add(this.pictureBox_newImage);
+            this.panel1.Controls.Add(this.button_save);
             this.panel1.Controls.Add(this.labelsurname);
             this.panel1.Controls.Add(this.richTextBox_description);
             this.panel1.Controls.Add(this.textBox_surname);
@@ -216,10 +216,20 @@
             this.panel1.Size = new System.Drawing.Size(767, 509);
             this.panel1.TabIndex = 30;
             // 
+            // pictureBox_newImage
+            // 
+            this.pictureBox_newImage.Image = global::PhoneBook.Properties.Resources.newperson;
+            this.pictureBox_newImage.Location = new System.Drawing.Point(440, 14);
+            this.pictureBox_newImage.Name = "pictureBox_newImage";
+            this.pictureBox_newImage.Size = new System.Drawing.Size(171, 144);
+            this.pictureBox_newImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_newImage.TabIndex = 30;
+            this.pictureBox_newImage.TabStop = false;
+            this.pictureBox_newImage.Click += new System.EventHandler(this.pictureBox_newImage_Click);
+            // 
             // button_save
             // 
-            this.button_save.BackColor = System.Drawing.SystemColors.Window;
-            this.button_save.BackgroundImage = global::PhoneBook.Properties.Resources.save;
+            this.button_save.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.button_save.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_save.FlatAppearance.BorderSize = 0;
             this.button_save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -227,18 +237,9 @@
             this.button_save.Name = "button_save";
             this.button_save.Size = new System.Drawing.Size(85, 85);
             this.button_save.TabIndex = 26;
+            this.button_save.Text = "Save";
             this.button_save.UseVisualStyleBackColor = false;
             this.button_save.Click += new System.EventHandler(this.button_save_Click);
-            // 
-            // pictureBox_newImage
-            // 
-            this.pictureBox_newImage.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox_newImage.Location = new System.Drawing.Point(436, 0);
-            this.pictureBox_newImage.Name = "pictureBox_newImage";
-            this.pictureBox_newImage.Size = new System.Drawing.Size(180, 168);
-            this.pictureBox_newImage.TabIndex = 18;
-            this.pictureBox_newImage.TabStop = false;
-            this.pictureBox_newImage.Click += new System.EventHandler(this.pictureBox_newImage_Click);
             // 
             // Form2
             // 
@@ -265,7 +266,6 @@
         private System.Windows.Forms.Label labelname;
         private System.Windows.Forms.TextBox textBox_surname;
         private System.Windows.Forms.Label labelsurname;
-        private System.Windows.Forms.PictureBox pictureBox_newImage;
         private System.Windows.Forms.RichTextBox richTextBox_description;
         private System.Windows.Forms.Button button_add_newadress;
         private System.Windows.Forms.Button button_add_newmail;
@@ -279,5 +279,6 @@
         private System.Windows.Forms.ComboBox comboBox_phone;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox_newImage;
     }
 }

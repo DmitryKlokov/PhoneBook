@@ -1,80 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Windows.Forms;
+using PhoneBook.Models;
+using PhoneBook.UOW;
 
 namespace PhoneBook
 {
     public partial class Form2 : Form
     {
-        private readonly PersonsManager _pm;
+        private readonly Uow _uow;
         private readonly Person _currentPerson;
+
         private readonly List<NewControl> _controls = new List<NewControl>();
 
-        
-
-        public Form2(PersonsManager pm)
+        public Form2(Uow uow)
         {
-            _pm = pm;
+            _uow = uow;
             InitializeComponent();
-            pictureBox_newImage.SizeMode = PictureBoxSizeMode.StretchImage;
-            var myImage = new Bitmap("newperson.png");
-            pictureBox_newImage.Image = myImage;
         }
 
-        public Form2(PersonsManager pm, Person currentPerson)
+        private Image ByteToImage(byte[] byteArrayIn)
         {
-            _pm = pm;
+            var ms = new MemoryStream(byteArrayIn);
+            var returnImage = Image.FromStream(ms);
+            return returnImage;
+        }
+
+        public Form2(Uow uow, Person currentPerson)
+        {
+            _uow = uow;
             _currentPerson = currentPerson;
             InitializeComponent();
 
-            textBox_name.Text = currentPerson.Name;
-            textBox_surname.Text = currentPerson.Surname;
+            textBox_name.Text = currentPerson.FirstName;
+            textBox_surname.Text = currentPerson.LastName;
             richTextBox_description.Text = currentPerson.Description;
-            pictureBox_newImage.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox_newImage.Image = currentPerson.LargeIcon;
+            if(currentPerson.Picture.Length!=0) pictureBox_newImage.Image = ByteToImage(currentPerson.Picture);
+            var phones = _currentPerson.Phones.ToList();
+            var emails = _currentPerson.Emails.ToList();
+            var addresses = _currentPerson.Addresses.ToList();
+
             if (currentPerson.Phones.Count > 0)
             {
-                comboBox_phone.Text = currentPerson.Phones[0].Name;
-                textBox_phone.Text = currentPerson.Phones[0].Value;
+                comboBox_phone.Text = phones[0].DescriptionPhone;
+                textBox_phone.Text = phones[0].NumberPhone;
                 for (var index = 1; index < currentPerson.Phones.Count; index++)
                 {
-                    var phone = currentPerson.Phones[index];
-                    AddNewControls(button_addphone.Location.X, button_addphone.Location.Y,GiveElementsCombobox(comboBox_phone), "phone");
+                    var phone = phones[index];
+                    AddNewControls(button_addphone.Location.X, button_addphone.Location.Y, GiveElementsCombobox(comboBox_phone), "phone");
                     button_addphone.Location = new Point(button_addphone.Location.X, button_addphone.Location.Y + 60);
-                    _controls[_controls.Count - 1].Key.Text = phone.Name;
-                    _controls[_controls.Count - 1].Value.Text = phone.Value;
+                    _controls[_controls.Count - 1].Key.Text = phone.DescriptionPhone;
+                    _controls[_controls.Count - 1].Value.Text = phone.NumberPhone;
                 }
             }
             if (currentPerson.Addresses.Count > 0)
             {
-                comboBox_address.Text = currentPerson.Addresses[0].Name;
-                textBox_address.Text = currentPerson.Addresses[0].Value;
+                comboBox_address.Text = addresses[0].DesctiptionAddress;
+                textBox_address.Text = addresses[0].AddressA;
                 for (var index = 1; index < _currentPerson.Addresses.Count; index++)
                 {
-                    var address = _currentPerson.Addresses[index];
-                    AddNewControls(button_add_newadress.Location.X, button_add_newadress.Location.Y,GiveElementsCombobox(comboBox_address), "address");
-                    button_add_newadress.Location = new Point(button_add_newadress.Location.X,button_add_newadress.Location.Y + 60);
-                    _controls[_controls.Count - 1].Key.Text = address.Name;
-                    _controls[_controls.Count - 1].Value.Text = address.Value;
+                    var address = addresses[index];
+                    AddNewControls(button_add_newadress.Location.X, button_add_newadress.Location.Y, GiveElementsCombobox(comboBox_address), "address");
+                    button_add_newadress.Location = new Point(button_add_newadress.Location.X, button_add_newadress.Location.Y + 60);
+                    _controls[_controls.Count - 1].Key.Text = address.DesctiptionAddress;
+                    _controls[_controls.Count - 1].Value.Text = address.AddressA;
                 }
             }
             if (currentPerson.Emails.Count <= 0) return;
             {
-                comboBox_email.Text = currentPerson.Emails[0].Name;
-                textBox_email.Text = currentPerson.Emails[0].Value;
+                comboBox_email.Text = emails[0].DescriptionEmail;
+                textBox_email.Text = emails[0].EmailAddress;
                 for (var index = 1; index < _currentPerson.Emails.Count; index++)
                 {
-                    var email = _currentPerson.Emails[index];
-                    AddNewControls(button_add_newmail.Location.X, button_add_newmail.Location.Y,GiveElementsCombobox(comboBox_email), "email");
-                    button_add_newmail.Location = new Point(button_add_newmail.Location.X,button_add_newmail.Location.Y + 60);
-                    _controls[_controls.Count - 1].Key.Text = email.Name;
-                    _controls[_controls.Count - 1].Value.Text = email.Value;
+                    var email = emails[index];
+                    AddNewControls(button_add_newmail.Location.X, button_add_newmail.Location.Y, GiveElementsCombobox(comboBox_email), "email");
+                    button_add_newmail.Location = new Point(button_add_newmail.Location.X, button_add_newmail.Location.Y + 60);
+                    _controls[_controls.Count - 1].Key.Text = email.DescriptionEmail;
+                    _controls[_controls.Count - 1].Value.Text = email.EmailAddress;
                 }
             }
         }
-
 
         private static string[] GiveElementsCombobox(ComboBox combobox)
         {
@@ -97,20 +108,6 @@ namespace PhoneBook
             _controls.Add(new NewControl(name, cb, b));
         }
 
-        private void pictureBox_newImage_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
-            try
-            {
-                var myImage = new Bitmap(openFileDialog1.FileName);
-                pictureBox_newImage.Image = myImage;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(@"Error: Could not read file from disk. Original error: " + ex.Message);
-            }
-        }
-
         private void button_addphone_Click(object sender, EventArgs e)
         {
             AddNewControls(button_addphone.Location.X, button_addphone.Location.Y, GiveElementsCombobox(comboBox_phone), "phone");
@@ -129,64 +126,116 @@ namespace PhoneBook
             button_add_newadress.Location = new Point(button_add_newadress.Location.X, button_add_newadress.Location.Y + 60);
         }
 
+        public static byte[] GetByte(Image largeIcon)
+        { 
+                using (var ms = new MemoryStream())
+                {
+                    largeIcon.Save(ms, ImageFormat.Bmp);
+                    return ms.ToArray();
+                }
+        }
+
+        public  byte[] ImageToByte(Image img)
+        {
+            var converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
+        }
+        
         private void button_save_Click(object sender, EventArgs e)
         {
             if (textBox_name.Text.Trim() == "" || textBox_surname.Text.Trim() == "")
             {
                 MessageBox.Show(@"Имя и фамилия!"); return;
             }
-            var p = new Person
+            Person p;
+            if (_currentPerson != null)
             {
-                Name = textBox_name.Text.Trim(),
-                Surname = textBox_surname.Text.Trim()
-            };
-
-            if(textBox_phone.Text.Trim()!="") p.Phones.Add(new Field(comboBox_phone.Text, textBox_phone.Text));
-            if(textBox_address.Text.Trim()!="") p.Addresses.Add(new Field(comboBox_address.Text, textBox_address.Text));
-            if(textBox_email.Text.Trim()!="") p.Emails.Add(new Field(comboBox_email.Text, textBox_email.Text));
-            foreach (var i in _controls.Where(i => i.Value.Text.Trim() != ""))
-            {
-                switch (i.Type)
+                p = _currentPerson;
+                var email = p.Emails.ToList();
+                var phones = p.Phones.ToList();
+                var addresses = p.Addresses.ToList();
+                for(var i=0;i<email.Count;i++) 
                 {
-                    case "phone":{ p.Phones.Add(new Field(i.Key.Text, i.Value.Text)); break; }
-                    case "email": { p.Emails.Add(new Field(i.Key.Text, i.Value.Text)); break; }
-                    default: { p.Addresses.Add(new Field(i.Key.Text, i.Value.Text)); break; }//address
+                    _uow.Emails.Delete(email[i].IdEmail);
+                }
+                for (var i = 0; i < addresses.Count; i++)
+                {
+                    _uow.Addresses.Delete(email[i].IdEmail);
+                }
+                for (var i = 0; i < phones.Count; i++)
+                {
+                    _uow.Phones.Delete(phones[i].IdPhone);
                 }
             }
+            else
+            {
+                p = new Person();
+            }
+
+            p.FirstName = textBox_name.Text;
+            p.LastName = textBox_surname.Text;
             p.Description = richTextBox_description.Text;
-            p.LargeIcon = (Bitmap)pictureBox_newImage.Image;
-            
-            
+
+            if (pictureBox_newImage.Image != null) p.Picture = ImageToByte(pictureBox_newImage.Image);
+
+            if (textBox_phone.Text.Trim() != "") p.Phones.Add(new Phone { DescriptionPhone = comboBox_phone.Text, NumberPhone = textBox_phone.Text });
+            if (textBox_address.Text.Trim() != "") p.Addresses.Add(new Address { DesctiptionAddress = comboBox_address.Text, AddressA = textBox_address.Text });
+            if (textBox_email.Text.Trim() != "") p.Emails.Add(new Email { DescriptionEmail = comboBox_email.Text, EmailAddress = textBox_email.Text });
+            foreach (var i in _controls.Where(i => i.Value.Text.Trim() != ""))
+            {
+                // ReSharper disable once SwitchStatementMissingSomeCases
+                switch (i.Type)
+                {
+                    case "phone": { p.Phones.Add(new Phone { DescriptionPhone = i.Key.Text, NumberPhone = i.Value.Text }); break; }
+                    case "Address": { p.Addresses.Add(new Address { DesctiptionAddress = i.Key.Text, AddressA = i.Value.Text }); break; }
+                    case "email": { p.Emails.Add(new Email { DescriptionEmail = i.Key.Text, EmailAddress = i.Value.Text }); break; }
+                }
+            }
+
             var main = Owner as Form1;
 
-            if (_pm.Exists(p)) {  Close(); main.Visible = true; MessageBox.Show(@"Запись уже создана"); return;  }
             if (main != null)
             {
                 if (_currentPerson != null)
                 {
-                    _pm.RemovePerson(_currentPerson);
-                    main.listView_persons.Items.RemoveByKey(_currentPerson.Id);
-                    main.ImageList1.Images.RemoveByKey(p.Id);
-                    main.listView_persons.SmallImageList = main.ImageList1;
+                    main.listView_persons.Items.RemoveByKey(_currentPerson.IdPerson.ToString());
+                    _uow.Persons.Update(p);
+                    main.AddNewPerson(p);
+                    _uow.Save();
                 }
+                else
+                {
+                    _uow.Persons.Create(p);
+                    _uow.Save();
+
+                    main.AddNewPerson();
+                }
+                main.ShowQuickNavigation();
+                main.Visible = true;
             }
-            main.ImageList1.Images.Add(p.Id, p.LargeIcon); 
-            main.listView_persons.Items.Add(new ListViewItem { Text = p.Name + @" " + p.Surname, Name = p.Id, ImageKey = p.Id});
-            main.ShowQuickNavigation();
-            main.Visible = true;
-
-            _pm.AddNewPerson(p);
-
             Close();
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Application.Exit();
             var main = Owner as Form1;
             if (main != null)
             {
                 main.Visible = true;
+            }
+        }
+
+        private void pictureBox_newImage_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
+            try
+            {
+                var myImage = new Bitmap(openFileDialog1.FileName);
+                pictureBox_newImage.Image = myImage;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"Error: Could not read file from disk. Original error: " + ex.Message);
             }
         }
     }
