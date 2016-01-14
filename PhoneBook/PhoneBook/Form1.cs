@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -62,18 +63,49 @@ namespace PhoneBook
 
         private void button_add_Click(object sender, EventArgs e)
         {
-            var f = new Form2(_uow);
-            Visible = false;
-            f.Owner = this;
-            f.Show();
+            _edit = false;
+            ClearPanel();
+            panel_editperson.Visible = true;
         }
 
+        private void ClearPanel()
+        {
+            textBox_namePerson.Text = "";
+            textBox_SurnamePerson.Text = "";
+            richTextBox_desc.Text = "";
+            pictureBox_edit.Image = Properties.Resources.newperson;
+            dataGridView_addresses.Rows.Clear();
+            dataGridView_emails.Rows.Clear();
+            dataGridView_phones.Rows.Clear();
+        }
         private void button_edit_Click(object sender, EventArgs e)
         {
-            var f = new Form2(_uow, _uow.Persons.Get(Convert.ToInt32(listView_persons.Items[listView_persons.SelectedIndices[0]].Name)));
-            Visible = false;
-            f.Owner = this;
-            f.Show();
+            _edit = true;
+            ClearPanel();
+            _currentPerson = _uow.Persons.Get(Convert.ToInt32(listView_persons.Items[listView_persons.SelectedIndices[0]].Name));
+            textBox_namePerson.Text = _currentPerson.FirstName;
+            textBox_SurnamePerson.Text = _currentPerson.LastName;
+            richTextBox_desc.Text = _currentPerson.Description;
+            pictureBox_edit.Image = ByteToImage(_currentPerson.Picture);
+            foreach (var ph in _currentPerson.Phones)
+            {
+                var rowNumber = dataGridView_phones.Rows.Add();
+                dataGridView_phones.Rows[rowNumber].Cells[0].Value = ph.NumberPhone;
+                dataGridView_phones.Rows[rowNumber].Cells[1].Value = ph.DescriptionPhone;
+            }
+            foreach (var em in _currentPerson.Emails)
+            {
+                var rowNumber = dataGridView_emails.Rows.Add();
+                dataGridView_emails.Rows[rowNumber].Cells[0].Value = em.EmailAddress;
+                dataGridView_emails.Rows[rowNumber].Cells[1].Value = em.DescriptionEmail;
+            }
+            foreach (var ad in _currentPerson.Addresses)
+            {
+                var rowNumber = dataGridView_addresses.Rows.Add();
+                dataGridView_addresses.Rows[rowNumber].Cells[0].Value = ad.AddressA;
+                dataGridView_addresses.Rows[rowNumber].Cells[1].Value = ad.DesctiptionAddress;
+            }
+            panel_editperson.Visible = true;
         }
 
         private void listView_quickNavigation_SelectedIndexChanged(object sender, EventArgs e)
@@ -129,23 +161,27 @@ namespace PhoneBook
             return returnImage;
         }
 
-        public void ShowInformationAboutPerson(Person p)
+        private void ShowInformationAboutPerson(Person p)
         {
             pictureBox_person.Image = null;
             if(p.Picture!=null) pictureBox_person.Image = ByteToImage(p.Picture);
             textBox_name.Text += p.FirstName + @" " + p.LastName;
+            label_phones.Visible = p.Phones.Count > 0;
             foreach (var phone in p.Phones)
             {
                 listView_phones.Items.Add(new ListViewItem(new[] {phone.NumberPhone,phone.DescriptionPhone}));
             }
+            label_Addresses.Visible = p.Addresses.Count > 0;
             foreach (var address in p.Addresses)
             {
                 listView_addresses.Items.Add(new ListViewItem(new[] { address.AddressA, address.DesctiptionAddress}));
             }
+            label_Mails.Visible = p.Emails.Count > 0;
             foreach (var email in p.Emails)
             {
                 listView_mails.Items.Add(new ListViewItem(new[] { email.EmailAddress, email.DescriptionEmail}));
             }
+            label_description.Visible = p.Description != "";
             richTextBox_person.Text += p.Description;
         }
 
@@ -197,6 +233,122 @@ namespace PhoneBook
             listView_quickNavigation.Items.Clear();
             AddPersons(abc);
             ShowQuickNavigation();
+        }
+
+        public static byte[] GetByte(Image largeIcon)
+        {
+            using (var ms = new MemoryStream())
+            {
+                largeIcon.Save(ms, ImageFormat.Bmp);
+                return ms.ToArray();
+            }
+        }
+
+        public byte[] ImageToByte(Image img)
+        {
+            var converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
+        }
+
+        private bool _edit;
+        private Person _currentPerson;
+
+
+        private void button_save_Click(object sender, EventArgs e)
+        {
+            if (textBox_namePerson.Text.Trim() == "" || textBox_SurnamePerson.Text.Trim() == "")
+            {
+                MessageBox.Show(@"Имя и фамилия!"); return;
+            }
+            Person p;
+            if (_edit)
+            {
+                p = _currentPerson;
+                var emails = p.Emails.ToList();
+                var phones = p.Phones.ToList();
+                var addresses = p.Addresses.ToList();
+                for (var i = 0; i < emails.Count; i++)
+                {
+                    _uow.Emails.Delete(emails[i].IdEmail);
+                }
+                for (var i = 0; i < addresses.Count; i++)
+                {
+                    _uow.Addresses.Delete(addresses[i].IdAddress);
+                }
+                for (var i = 0; i < phones.Count; i++)
+                {
+                    _uow.Phones.Delete(phones[i].IdPhone);
+                }
+            }
+            else
+            {
+                p = new Person();
+            }
+
+            p.FirstName = textBox_namePerson.Text;
+            p.LastName = textBox_SurnamePerson.Text;
+            p.Description = richTextBox_desc.Text;
+
+            if (pictureBox_edit.Image != null) p.Picture = ImageToByte(pictureBox_edit.Image);
+
+            for(var i=0;i< dataGridView_phones.Rows.Count-1;i++)
+            { 
+                p.Phones.Add(new Phone
+                {
+                    DescriptionPhone = dataGridView_phones.Rows[i].Cells[1].Value.ToString(),
+                    NumberPhone = dataGridView_phones.Rows[i].Cells[0].Value.ToString()
+                });
+            }
+            for (var i = 0; i < dataGridView_addresses.Rows.Count - 1; i++)
+            {
+                p.Addresses.Add(new Address
+                {
+                    DesctiptionAddress = dataGridView_addresses.Rows[i].Cells[1].Value.ToString(),
+                    AddressA = dataGridView_addresses.Rows[i].Cells[0].Value.ToString()
+                });
+            }
+            for (var i = 0; i < dataGridView_emails.Rows.Count - 1; i++)
+            {
+                p.Emails.Add(new Email
+                {
+                    DescriptionEmail = dataGridView_emails.Rows[i].Cells[1].Value.ToString(),
+                    EmailAddress = dataGridView_emails.Rows[i].Cells[0].Value.ToString()
+                });
+            }
+            if (_edit)
+            {
+                listView_persons.Items.RemoveByKey(_currentPerson.IdPerson.ToString());
+                _uow.Persons.Update(p);
+                AddNewPerson(p);
+                _uow.Save();
+            }
+            else
+            {
+                _uow.Persons.Create(p);
+                _uow.Save();
+                AddNewPerson();
+            }
+            ShowQuickNavigation();
+            panel_editperson.Visible = false;
+        }
+
+        private void pictureBox_edit_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
+            try
+            {
+                var myImage = new Bitmap(openFileDialog1.FileName);
+                pictureBox_edit.Image = myImage;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"Error: Could not read file from disk. Original error: " + ex.Message);
+            }
+        }
+
+        private void button_back_Click(object sender, EventArgs e)
+        {
+            panel_editperson.Visible = false;
         }
     }
 }
